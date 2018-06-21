@@ -97,11 +97,18 @@ public class Main {
     private  static  int getMultiply(int [] numbers)
     {
         int multiply = 1;
-        int min = getMinIndex(numbers);
-        int max = getMaxIndex(numbers);
-        for (int i = 0; i < numbers.length; i++) {
-            if(i == max-1 || i == max+1 || i == min - 1 || i == min+1)
-                multiply*=numbers[i];
+        int max,min;
+        if(getMinIndex(numbers) < getMaxIndex(numbers)){
+            min = getMinIndex(numbers);
+            max = getMaxIndex(numbers);
+        }
+        else
+            {
+                max = getMinIndex(numbers);
+                min = getMaxIndex(numbers);
+            }
+        for (int i = min + 1; i < max; i++) {
+            multiply*=numbers[i];
         }
         return multiply;
     }

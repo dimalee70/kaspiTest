@@ -5,8 +5,6 @@ import org.apache.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //Стрелы – это подстроки вида ‘>>-->’ и ‘<--<<’.
 //<<<< >>--> <--<< --<<> >>--> <<<<< = 3(в вашем примере равен 4)
@@ -16,11 +14,22 @@ public class Main {
         String inputFileName = "src/txt/input.txt";
         String outputFileName = "src/txt/output.txt";
         String content = readUsingApacheCommonsIO(inputFileName);
-        Pattern p = Pattern.compile("<--<<|>>-->");
-        Matcher m = p.matcher(content);
+
         int count = 0;
-        while (m.find()){
-            count +=1;
+
+        for (int i = 0; i < content.length()-4;i++)
+        {
+            if ((content.charAt(i) == '<' && content.charAt(i+1) == '-'
+                    &&content.charAt(i+2) == '-' &&
+                    content.charAt(i+3) == '<' &&
+                    content.charAt(i) == '<') ||
+                    (content.charAt(i) == '>' && content.charAt(i+1) == '>'
+                    &&content.charAt(i+2) == '-' &&
+                    content.charAt(i+3) == '-' &&
+                    content.charAt(i) == '>'))
+            {
+                count++;
+            }
         }
         logger.log(Level.INFO,"To write in the file "+count);
         createAndWriteIntoFile(outputFileName,count);

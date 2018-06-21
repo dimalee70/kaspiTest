@@ -21,7 +21,8 @@ public class Main
 //        System.out.println(getIdx(numbers,96));
 //        System.out.println("summ "+getCash(numbers));
         createAndWriteIntoFile(outputFileName,getCash(numbers));
-
+//
+//        System.out.println(getCash(numbers));
     }
     private static int getIdx(int [] arr, int temp)
     {
@@ -35,39 +36,50 @@ public class Main
 
     private static  int getCash(int [] numbers)
     {
-        int sale = 0, idx = 0, summ = 0, days = 1;
         LinkedList<Integer> linkedList = new LinkedList<>();
         for (int i = 0; i < numbers.length; i++) {
             linkedList.add(numbers[i]);
         }
         Collections.sort(linkedList);
-//        for (int t: linkedList
-//             ) {
-//            System.out.println(t);
-//        }
-
-        int diff = 0;
-
-        while (idx < numbers.length-1){
-            int temp = getIdx(numbers,linkedList.getLast());
-
-//            System.out.println("temp "+temp);
-            if (temp >= idx) {
-                diff = (days+=temp) - diff;
-//                System.out.println("days " + days);
-//                System.out.println("diff " + diff );
-//                System.out.println("into");
-                idx = temp;
-                summ += linkedList.getLast() * diff;
-//                System.out.println("summ "+summ);
-//                System.out.println("loc" + diff);
-                days = 1;
-
+        int temp = 0;
+        int i=0;
+        int days = 1;
+        int summ = 0;
+        while (temp != numbers.length-1)
+        {
+            if(getIdx(numbers,linkedList.getLast()) >= temp)
+            {
+                temp = getIdx(numbers,linkedList.getLast());
+                int [] tempArr = Arrays.copyOfRange(numbers,i,temp+1);
+//                System.out.println(Arrays.toString(tempArr));
+                summ += tempArr.length * tempArr[tempArr.length-1];
+//                System.out.println(summ);
+                i = temp+1;
 
             }
             linkedList.removeLast();
-//            System.out.println("ind"+idx);
+
+
         }
+//        while (idx < numbers.length-1){
+//            int temp = getIdx(numbers,linkedList.getLast());
+//
+////            System.out.println("temp "+temp);
+//            if (temp >= idx) {
+//                diff = (days+=temp) - diff;
+////                System.out.println("days " + days);
+////                System.out.println("diff " + diff );
+////                System.out.println("into");
+//                idx = temp;
+//                summ += linkedList.getLast() * diff;
+////                System.out.println("summ "+summ);
+////                System.out.println("loc" + diff);
+//                days = 1;
+//
+//
+//            }
+//            linkedList.removeLast();
+//        }
         return summ;
     }
     private static int [] readFromFile(String fileName)

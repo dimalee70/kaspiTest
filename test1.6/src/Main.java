@@ -1,21 +1,11 @@
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Main{
     private static Logger logger = Logger.getLogger(Main.class);
@@ -49,11 +39,11 @@ public class Main{
             t /= 10;
         }
         int count = 0;
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i <= 9; i++) {
             if (isNumber[i])
                 count++;
         }
-        returnBool = count<=2;
+        returnBool = count <= 2;
         return returnBool;
     }
     private  static void  createAndWriteIntoFile(String fileNme,int data)
